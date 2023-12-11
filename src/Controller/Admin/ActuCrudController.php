@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ActuCrudController extends AbstractCrudController
@@ -25,11 +26,13 @@ class ActuCrudController extends AbstractCrudController
             TextEditorField::new('text_content'),
             TextField::new('imageFile')
             ->setFormType(VichImageType::class)
-            ->onlyWhenCreating(), // Afficher seulement sur les formulaires
+            ->onlyOnForms(), // Afficher seulement sur les formulaires
             ImageField::new('images')
                 ->setBasePath('/upload/img_actu') 
                 ->onlyOnIndex(), 
-            
+            DateTimeField::new('publication_date')
+                ->onlyOnIndex()
+                ->setFormat('yyyy-MM-dd HH:mm:ss'),
         ];
     }
     

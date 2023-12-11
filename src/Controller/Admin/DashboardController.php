@@ -8,23 +8,26 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
-use EasyCorp\Bundle\EasyAdminBundle\Field\VichImageField;
+
 use App\Entity\Actu;
 use App\Entity\Event;
 
 class DashboardController extends AbstractDashboardController
 {
-    public function __construct(AdminUrlGenerator $adminUrlGenerator)
-    {
-        
+    public function __construct(
+        private AdminUrlGenerator $adminUrlGenerator
+    ) {
     }
+
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-               
-        
-        $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-        return $this->redirect($adminUrlGenerator->setController(ActuCrudController::class)->generateUrl());
+        // return parent::index();
+
+        // Option 1. You can make your dashboard redirect to some common page of your backend
+        //
+        // $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
+        return $this->redirect($this->adminUrlGenerator->setController(ActuCrudController::class)->generateUrl());
 
         // Option 2. You can make your dashboard redirect to different pages depending on the user
         //
@@ -46,8 +49,8 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        // yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home'); 
         yield MenuItem::linkToCrud('Actu', 'fas fa-list', Actu::class);
-        // yield MenuItem::linkToCrud('Event', 'fas fa-list', EventClass::class);
+        yield MenuItem::linkToCrud('Event', 'fas fa-list', Event::class);
     }
 }
