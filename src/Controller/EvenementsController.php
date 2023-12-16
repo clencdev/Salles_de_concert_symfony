@@ -28,7 +28,7 @@ class EvenementsController extends AbstractController
 
     public function event_description(Event $event): Response
     {
-        return $this->render('evenemments/eventCard.html.twig', [
+        return $this->render('evenements/eventCard.html.twig', [
             'event' => $event,
         ]);
     }

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ActualiteController!{% endblock %}
+
+{% block body %}
+<main class="mt-5">
+    <h1 class="text-center text-primary mb-4">Actu</h1> {# Bootstrap classes for styling #}
+    <div class="row">
+        {% for actu in actualites %}
+            {% include 'actualite/actuTemplate.html.twig' with {actu: actu} only %}
+        {% else %}
+            <p>Aucune actualité trouvée.</p>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

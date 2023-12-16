@@ -1,15 +1,22 @@
-{# <main class="mt-5">
+{% extends 'base.html.twig' %}
 
+{% block title %}Events{% endblock %}
+
+{% block body %}
+<main class="mt-5">
     <div class="container mt-4 p-3">
         <h1 class="display-4 mb-4">Event</h1>
 
         <div class="card">
-            <img src="photo/photoevent/<?php echo $ev['photo'] ?>" alt="Article Image" class="card-img-top">
+            {% if event.getEventImage() %}
+                <img class="card-img-top" src="{{ asset('upload/img_event/' ~ event.getEventImage()) }}" alt="{{ event.getEventName() }}" />
+            {% endif %}
             <div class="card-body">
-                <h2 class="card-title"><?php echo $ev['event_name'] ?></h2>
-                <p class="card-text"><?php echo nl2br($ev['descriptions']) ?></p>
-                <!-- fonction qui permet de mettre en forme mon text_content lors de l'affichage pour l'utilisateur -->
+                <h2 class="card-title">{{ event.getEventName() }}</h2>
+                <p class="card-text">{{ event.getDescription() }}</p>
             </div>
         </div>
 
-    </div> #}
+    </div>
+</main>
+{% endblock %}
