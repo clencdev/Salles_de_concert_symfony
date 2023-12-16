@@ -1,0 +1,19 @@
+<div class="col-md-4 col-sm-6 mb-4"> 
+    <div class="card">
+        <a href="{{ path('evenement_description', { id: evenement.id}) }}">
+            {% if evenement.getEventImage() %}
+                <img class="card-img-top" src="{{ asset('upload/img_event/' ~ evenement.getEventImage()) }}" alt="{{ evenement.getEventName() }}" />
+            {% endif %}
+        </a>
+        <div class="card-body">
+            <h5 class="card-title">{{ evenement.getEventName() }}</h5>
+            <p class="card-text text-truncate">{{ evenement.getDescription() }}</p>
+            <a href="{{ path('evenement_description', { id: evenement.id}) }}" class="btn btn-primary">
+                Read more
+                <svg class="bi bi-arrow-right-short ms-2" width="1em" height="1em" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M10.854 5.354a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L9.293 6H1.5a.5.5 0 0 1 0-1h7.793l-2.147-2.146a.5.5 0 1 1 .708-.708l3 3z"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>
