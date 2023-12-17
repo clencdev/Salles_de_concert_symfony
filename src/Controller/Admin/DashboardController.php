@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Repository\EventRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -40,6 +41,22 @@ class DashboardController extends AbstractDashboardController
         //
         // return $this->render('some/path/my-dashboard.html.twig');
     }
+    #[Route('/admin/calendar', name: 'calendar')]
+    public function calendar(EventRepository $eventRepository): Response
+    {
+        $events = $eventRepository->findAll();
+        $formattedEvents = array_map(function ($event) {
+            return [
+                'title' => $event->getEventName(), // Assurez-vous que cette méthode existe dans votre entité Event
+                'start' => $event->getEventDate()->format('Y-m-d'), // Utilisez event_date ici
+                // Pas de propriété 'end', donc elle est omise
+            ];
+        }, $events);
+    
+        return $this->render('admin/calendar.html.twig', [
+            'events' => $formattedEvents,
+        ]);
+}
 
     public function configureDashboard(): Dashboard
     {
@@ -52,5 +69,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home'); 
         yield MenuItem::linkToCrud('Actu', 'fas fa-list', Actu::class);
         yield MenuItem::linkToCrud('Event', 'fas fa-list', Event::class);
+        yield MenuItem::linkToRoute('Calendrier', 'fa fa-calendar', 'calendar');
+        
     }
 }
