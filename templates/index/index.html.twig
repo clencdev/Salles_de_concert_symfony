@@ -5,15 +5,15 @@
 {% block body %}
 <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
+    {% for event in events %}
     <div class="carousel-item active">
-      <img src="..." class="d-block w-100" alt="...">
+      <img src="{{ asset('upload/img_event/' ~ event.getEventImage()) }}" alt="{{ event.getEventName() }}" class="d-block w-100">
     </div>
-    <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
-    </div>
+    <div class="position-absolute top-0 start-0 w-100 text-white py-2 px-4" style="background-color: rgba(0, 0, 0, 0.5); font-size: 40px;">
+    {{ event.getEventName() }}
+</div>
+
+    {% endfor %}
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -24,5 +24,41 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
+
+<div class="mt-5">
+    <h2 class="text-center text-xl font-semibold text-primary mb-5">Les Actus</h2>
+
+    <div class="row">
+        {% for i in 0..5 %}
+            {% if actus[i] is defined %}
+                <div class="col-md-4 mb-4"> {# Ajoutez la logique de la grille ici #}
+                    {% set actu = actus[i] %}
+                    {% include 'actualite/actuTemplate.html.twig' with {'actu': actu} %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<div class="mt-5">
+    <div class="container text-center">
+        <h1 class="mb-5 display-4">À propos de nous</h1>
+
+        <p class="mb-4 fs-5">Bienvenue chez OK Lieu de Concert, votre destination incontournable pour la musique underground au cœur de Lyon. Nichés dans le dynamique 8ème arrondissement, au 50 rue Laennec, nous sommes fiers d'offrir deux salles uniques où la créativité et l'originalité de la scène musicale prennent vie.</p>
+
+        <h2 class="mt-5 mb-4">Notre Philosophie</h2>
+        <p class="mb-4 fs-5">Nous croyons en la puissance de la musique pour rassembler les gens et créer des expériences inoubliables. Chez OK Lieu de Concert, chaque performance est une chance de découvrir des sons avant-gardistes et de célébrer les talents émergents ainsi que les artistes établis qui façonnent le paysage musical alternatif.</p>
+
+        <h2 class="mt-5 mb-4">Nos Espaces</h2>
+        <p class="mb-4 fs-5">Nos deux salles sont conçues pour offrir une acoustique exceptionnelle, une ambiance intimiste et une expérience immersive. Que ce soit pour un concert électrisant ou une performance acoustique épurée, nos espaces sont modulables et s'adaptent à la vision de chaque artiste.</p>
+
+        <h2 class="mt-5 mb-4">Notre Communauté</h2>
+        <p class="fs-5">Nous sommes plus qu'un lieu de concert : nous sommes un collectif de passionnés de musique, d'artistes, et de fans qui partagent un amour commun pour les rythmes non conventionnels. Chaque événement est une opportunité de tisser des liens, de partager des idées et de s'enrichir mutuellement au sein de notre communauté.</p>
+    </div>
+</div>
+
+
+
+
 
 {% endblock %}

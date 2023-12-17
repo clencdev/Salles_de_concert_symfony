@@ -23,6 +23,9 @@ class Contact
     #[ORM\Column(type: Types::TEXT)]
     private ?string $contact_text = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $sujet = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Contact
     public function setContactText(string $contact_text): static
     {
         $this->contact_text = $contact_text;
+
+        return $this;
+    }
+
+    public function getSujet(): ?string
+    {
+        return $this->sujet;
+    }
+
+    public function setSujet(string $sujet): static
+    {
+        $this->sujet = $sujet;
 
         return $this;
     }
