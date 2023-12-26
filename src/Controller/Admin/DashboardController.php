@@ -45,16 +45,17 @@ class DashboardController extends AbstractDashboardController
     public function calendar(EventRepository $eventRepository): Response
     {
         $events = $eventRepository->findAll();
-        $formattedEvents = array_map(function ($event) {
-            return [
-                'title' => $event->getEventName(), // Assurez-vous que cette méthode existe dans votre entité Event
-                'start' => $event->getEventDate()->format('Y-m-d'), // Utilisez event_date ici
-                // Pas de propriété 'end', donc elle est omise
+        $formattedEvents = [];
+
+        foreach ($events as $event) {
+            $formattedEvents[] = [
+                'title' => $event->getEventName(),
+                'start' => $event->getEventDate()->format('Y-m-d'),
             ];
-        }, $events);
+        }
     
         return $this->render('admin/calendar.html.twig', [
-            'events' => $formattedEvents,
+            'events' => json_encode($formattedEvents),
         ]);
 }
 

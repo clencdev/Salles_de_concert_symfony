@@ -1,5 +1,5 @@
 <div class="col">
-    <div class="card mx-auto" style="width: 18rem;"> {# Fixe une largeur standard pour les cartes #}
+    <div class="card mx-auto" style="width: 18rem;"> 
         {% if actu.getImages() %}
             <img class="card-img-top" src="{{ asset('upload/img_actu/' ~ actu.getImages()) }}" alt="{{ actu.getTitle() }}" />
         {% endif %}

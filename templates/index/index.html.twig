@@ -6,15 +6,15 @@
 <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
     {% for event in events %}
-    <div class="carousel-item active">
-      <img src="{{ asset('upload/img_event/' ~ event.getEventImage()) }}" alt="{{ event.getEventName() }}" class="d-block w-100">
-    </div>
-    <div class="position-absolute top-0 start-0 w-100 text-white py-2 px-4" style="background-color: rgba(0, 0, 0, 0.5); font-size: 40px;">
-    {{ event.getEventName() }}
-</div>
-
+      <div class="carousel-item {% if loop.first %}active{% endif %}">
+        <img src="{{ asset('upload/img_event/' ~ event.getEventImage()) }}" alt="{{ event.getEventName() }}" class="d-block w-100">
+        <div class="position-absolute top-0 start-0 w-100 text-white py-2 px-4" style="background-color: rgba(0, 0, 0, 0.5); font-size: 40px;">
+          {{ event.getEventName() }}
+        </div>
+      </div>
     {% endfor %}
   </div>
+</div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
